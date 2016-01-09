@@ -1,0 +1,23 @@
+{
+    "name": "baconmanager/user-bundle",
+    "description": "This bundle of symfony2",
+    "keywords": ["User Bundle"],
+    "type": "symfony-bundle",
+    "license":      "MIT",
+    "authors": [
+        {
+            "name": "Adan Felipe Medeiros",
+            "email": "adan.grg@gmail.com"
+        },
+        {
+            "name": "Jonas Vieira Pereira",
+            "email": "jonasvpereira@gmail.com"
+        },
+        {
+            "name": "Mateus Guerra"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Bacon\\Bundle\\UserBundle\\": "" }
+    }
+}
