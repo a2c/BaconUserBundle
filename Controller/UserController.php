@@ -42,13 +42,13 @@ class UserController extends AdminController
             'title' => 'List',
             'route' => '',
         ));
+        
+        $entity = new User();
+        $query = $this->getDoctrine()->getRepository('BaconUserBundle:User')->getQueryPagination($entity, $sort, $direction);
 
         if ($this->get('session')->has('user_search_session')) {
             $objSerialize = $this->get('session')->get('user_search_session');
             $entity = unserialize($objSerialize);
-            $query = $this->getDoctrine()->getRepository('BaconUserBundle:User')->getQueryPagination($entity, $sort, $direction);
-        } else {
-            $entity = new User();
             $query = $this->getDoctrine()->getRepository('BaconUserBundle:User')->getQueryPagination($entity, $sort, $direction);
         }
 
