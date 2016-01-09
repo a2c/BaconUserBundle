@@ -1,0 +1,2 @@
+# BaconUserBundle
+Custom FosUserBundle
