@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-    	"friendsofsymfony/user-bundle": "dev-master"
+    	"friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "autoload": {
         "psr-4": { "Bacon\\Bundle\\UserBundle\\": "" }
