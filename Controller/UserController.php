@@ -76,7 +76,8 @@ class UserController extends AdminController
      */
     public function searchAction(Request $request)
     {
-
+        $this->get('session')->remove('user_search_session');
+        
         if ($request->getMethod() === Request::METHOD_POST) {
 
             $form = $this->createForm(new UserFormType(),new User(),array(
@@ -86,8 +87,6 @@ class UserController extends AdminController
             $form->handleRequest($request);
 
             $this->get('session')->set('user_search_session',serialize($form->getData()));
-        } else {
-            $this->get('session')->remove('user_search_session');
         }
 
         return $this->redirect($this->generateUrl('admin_user'));
@@ -156,8 +155,8 @@ class UserController extends AdminController
 
         if ($handler->delete($entity)) {
             return $this->redirect($this->generateUrl('admin_user'));
-        } else {
-            return $this->redirect($this->generateUrl('admin_user_show', array('id' => $id)));
         }
+
+        return $this->redirect($this->generateUrl('admin_user_show', array('id' => $id)));
     }
 }
