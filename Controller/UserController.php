@@ -2,6 +2,7 @@
 
 namespace Bacon\Bundle\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -55,7 +56,7 @@ class UserController extends AdminController
         $paginator = $this->getPagination($query, $page, User::PER_PAGE);
         $paginator->setUsedRoute('admin_user_pagination');
 
-        $form = $this->createForm(new UserFormType(), $entity, array(
+        $form = $this->createForm(UserFormType::class, $entity, array(
             'search' => true,
         ));
 
@@ -140,23 +141,23 @@ class UserController extends AdminController
      * @Security("has_role('ROLE_ADMIN')")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, User $entity)
     {
+        $form = $this->createDeleteForm('admin_user_delete',$entity);
 
-        $handler = new UserFormHandler(
-            $this->createDeleteForm(),
-            $request,
-            $this->get('doctrine')->getManager(),
-            $this->get('session')->getFlashBag()
-        );
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() and $form->isValid()) {
 
-        $entity = $this->getDoctrine()->getRepository('BaconUserBundle:User')->find($id);
+            $this->getDoctrine()->getManager()->remove($entity);
+            $this->getDoctrine()->getManager()->flush();
 
-        if ($handler->delete($entity)) {
-            return $this->redirect($this->generateUrl('admin_user'));
+            $this->getFlashBag()->add('message', array(
+                'type' => 'success',
+                'message' => 'The record has been removed successfully',
+            ));
+
+            return new RedirectResponse($this->generateUrl('admin_user'));
         }
-
-        return $this->redirect($this->generateUrl('admin_user_show', array('id' => $id)));
     }
 }
