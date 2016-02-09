@@ -31,7 +31,7 @@ class UserController extends AdminController
      */
     public function indexAction($page, $sort, $direction)
     {
-        $breadcumbs = $this->container->get('a2c_breadcrumbs');
+        $breadcumbs = $this->container->get('bacon_breadcrumbs');
 
         $breadcumbs->addItem(array(
             'title' => 'User',
