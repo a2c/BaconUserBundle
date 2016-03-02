@@ -4,7 +4,7 @@
     {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
         {{ form_widget(form) }}
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-5">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'resetting.reset.submit'|trans }}</button>
             </div>
         </div>
