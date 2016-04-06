@@ -9,17 +9,17 @@ use Uecode\Bundle\ApiKeyBundle\Util\ApiKeyGenerator;
 
 /**
  * Class User
+ * 
  * @package Bacon\Bundle\UserBundle\Entity
  *
  * @author Adan Felipe Medeiros<adan.grg@gmail.com>
  * @version 1.0
  *
- * @ORM\Entity(repositoryClass="Bacon\Bundle\UserBundle\Entity\Repository\UserRepository")
- * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\MappedSuperclass(repositoryClass="Bacon\Bundle\UserBundle\Entity\Repository\UserRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class User extends BaseUser
+abstract class User extends BaseUser
 {
     /**
      * @var integer
