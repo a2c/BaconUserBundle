@@ -43,14 +43,16 @@ class UserController extends AdminController
             'title' => 'List',
             'route' => '',
         ));
-        
-        $entity = new User();
-        $query = $this->getDoctrine()->getRepository('BaconUserBundle:User')->getQueryPagination($entity, $sort, $direction);
+
+        $className = $this->getParameter('fos_user.model.user.class');
+
+        $entity = new $className();
+        $query = $this->getDoctrine()->getRepository($className)->getQueryPagination($entity, $sort, $direction);
 
         if ($this->get('session')->has('user_search_session')) {
             $objSerialize = $this->get('session')->get('user_search_session');
             $entity = unserialize($objSerialize);
-            $query = $this->getDoctrine()->getRepository('BaconUserBundle:User')->getQueryPagination($entity, $sort, $direction);
+            $query = $this->getDoctrine()->getRepository($className)->getQueryPagination($entity, $sort, $direction);
         }
 
         $paginator = $this->getPagination($query, $page, User::PER_PAGE);
@@ -81,7 +83,11 @@ class UserController extends AdminController
         
         if ($request->getMethod() === Request::METHOD_POST) {
 
-            $form = $this->createForm(new UserFormType(),new User(),array(
+            $className = $this->getParameter('fos_user.model.user.class');
+
+            $entity = new $className();
+
+            $form = $this->createForm(new UserFormType(), $entity ,array(
                 'search' => true,
             ));
 

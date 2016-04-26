@@ -16,7 +16,7 @@ use Uecode\Bundle\ApiKeyBundle\Util\ApiKeyGenerator;
  * @version 1.0
  *
  * @ORM\HasLifecycleCallbacks()
- * @ORM\MappedSuperclass(repositoryClass="Bacon\Bundle\UserBundle\Entity\Repository\UserRepository")
+ * @ORM\MappedSuperclass()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 abstract class User extends BaseUser
