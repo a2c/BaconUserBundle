@@ -121,7 +121,9 @@ class UserController extends AdminController
             'route' => '',
         ));
 
-        $entity = $this->getDoctrine()->getRepository('BaconUserBundle:User')->find($id);
+        $className = $this->getParameter('fos_user.model.user.class');
+        
+        $entity = $this->getDoctrine()->getRepository($className)->find($id);
 
         if (!$entity) {
 
@@ -132,6 +134,7 @@ class UserController extends AdminController
 
             return $this->redirect($this->generateUrl('admin_user'));
         }
+        
 
         $deleteForm = $this->createDeleteForm($id);
 

@@ -54,6 +54,16 @@
                                 <th>{{ 'Email'|trans }}</th>
                                 <td>{{ entity.email }}</td>
                             </tr>
+                            {% if entity.groups is defined %}
+                                <tr>
+                                    <th>{{ 'Groups'|trans }}</th>
+                                    <td>
+                                        {% for obj in entity.groups %}
+                                            <span class="external-event {{ random(['bg-green', 'bg-aqua', 'bg-blue', 'bg-danger', 'bg-yellow'])  }}">{{ obj.name }}</span>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endif %}
                             <tr>
                                 <th>{{ 'Enabled'|trans }}</th>
                                 <td>{{ entity.enabled ? 'Yes'|trans : 'No'|trans }}</td>
