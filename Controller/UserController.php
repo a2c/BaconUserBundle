@@ -100,6 +100,47 @@ class UserController extends AdminController
     }
 
     /**
+     * @Route("/{id}/groups", name="bacon_user_user_groups")
+     * @Method("POST|GET")
+     * @Template()
+     */
+    public function groupsAction(Request $request, $id)
+    {
+        $className = $this->getParameter('fos_user.model.user.class');
+        $entity = $this->getDoctrine()->getRepository($className)->find($id);
+        
+        $form = $this->createFormBuilder($entity)
+            ->add('groups', null, [
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ])
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $this->getDoctrine()->getManager()->persist($data);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->getFlashBag()->add('message', [
+                'type' => 'success',
+                'message' => sprintf('The record has been %s successfully.','updated'),
+            ]);
+            
+            return $this->redirectToRoute('admin_user');
+        }
+        
+        return [
+            'entity' => $entity,
+            'form'  => $form->createView()
+        ];
+    }
+
+    /**
      * Finds and displays a User entity.
      *
      * @Route("/{id}", name="admin_user_show")

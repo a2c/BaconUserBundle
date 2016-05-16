@@ -55,6 +55,9 @@
                                             <a href="{{ path('admin_user_show', { 'id': entity.id }) }}" class="btn btn-sm btn-default" data-original-title="{{ 'Show'|trans }}">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </a>
+                                            <a href="{{ path('bacon_user_user_groups', { 'id': entity.id }) }}" class="btn btn-sm btn-success" data-original-title="{{ 'Groups'|trans }}">
+                                                <span class="fa fa-users"></span>
+                                            </a>
                                              <button type="button" class="btn btn-sm btn-danger" title="" data-target="#modalDelete{{ entity.id }}" data-toggle="modal" data-original-title="{{ 'Remove'|trans }}">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                             </button>
