@@ -18,6 +18,12 @@ class RegistrationController extends BaseController
 {
     public function registerAction(Request $request)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'NEW')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $breadcumbs = $this->container->get('bacon_breadcrumbs');
 
         $breadcumbs->addItem(array(

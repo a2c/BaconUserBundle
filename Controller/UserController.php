@@ -32,6 +32,12 @@ class UserController extends AdminController
      */
     public function indexAction($page, $sort, $direction)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'INDEX')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $breadcumbs = $this->container->get('bacon_breadcrumbs');
 
         $breadcumbs->addItem(array(
@@ -80,7 +86,13 @@ class UserController extends AdminController
     public function searchAction(Request $request)
     {
         $this->get('session')->remove('user_search_session');
-        
+
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'INDEX')) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($request->getMethod() === Request::METHOD_POST) {
 
             $className = $this->getParameter('fos_user.model.user.class');
@@ -106,6 +118,12 @@ class UserController extends AdminController
      */
     public function groupsAction(Request $request, $id)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'NEW')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $className = $this->getParameter('fos_user.model.user.class');
         $entity = $this->getDoctrine()->getRepository($className)->find($id);
         
@@ -150,6 +168,12 @@ class UserController extends AdminController
      */
     public function showAction($id)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'SHOW')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $breadcumbs = $this->container->get('bacon_breadcrumbs');
 
         $breadcumbs->addItem(array(
@@ -193,6 +217,12 @@ class UserController extends AdminController
      */
     public function deleteAction(Request $request, User $entity)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'DELETE')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createDeleteForm('admin_user_delete',$entity);
 
         $form->handleRequest($request);

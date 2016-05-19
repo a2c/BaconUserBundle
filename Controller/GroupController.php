@@ -34,6 +34,12 @@ class GroupController extends Controller
      */
     public function listAction()
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'USER_GROUPS')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $groups = $this->get('fos_user.group_manager')->findGroups();
 
         return $this->render('FOSUserBundle:Group:list.html.twig', array(
@@ -46,6 +52,12 @@ class GroupController extends Controller
      */
     public function showAction($groupName)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'USER_GROUPS')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $group = $this->findGroupBy('name', $groupName);
 
         return $this->render('FOSUserBundle:Group:show.html.twig', array(
@@ -58,6 +70,12 @@ class GroupController extends Controller
      */
     public function editAction(Request $request, $groupName)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'USER_GROUPS')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $group = $this->findGroupBy('name', $groupName);
 
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -115,6 +133,12 @@ class GroupController extends Controller
      */
     public function newAction(Request $request)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'USER_GROUPS')) {
+            throw $this->createAccessDeniedException();
+        }
+
         /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
         $groupManager = $this->get('fos_user.group_manager');
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -157,6 +181,12 @@ class GroupController extends Controller
      */
     public function deleteAction(Request $request, $groupName)
     {
+        $acl = $this->get('bacon_acl.service.authorization');
+
+        if (!$acl->authorize('users', 'USER_GROUPS')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $group = $this->findGroupBy('name', $groupName);
         $this->get('fos_user.group_manager')->deleteGroup($group);
 
