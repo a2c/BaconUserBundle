@@ -15,14 +15,18 @@
                 <section class="row">
                     <div class="col-lg-4">
                         <div class="btn-group">
-                            <a href="{{ path('fos_user_group_list') }}" class="btn btn-default">
-                                <span class="glyphicon glyphicon-th-list"></span>
-                                {{ 'List'|trans }}
-                            </a>
-                            <a href="{{ path('fos_user_group_new') }}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                {{ 'New'|trans }}
-                            </a>
+                            {% if (bacon_acl_authorization('groups', 'INDEX') == true) %}
+                                <a href="{{ path('fos_user_group_list') }}" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    {{ 'List'|trans }}
+                                </a>
+                            {% endif %}
+                            {% if (bacon_acl_authorization('groups', 'NEW') == true) %}
+                                <a href="{{ path('fos_user_group_new') }}" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    {{ 'New'|trans }}
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </section>

@@ -15,23 +15,29 @@
                 <section class="row">
                     <div class="col-lg-4">
                         <div class="btn-group">
-                            <a href="{{ path('admin_user') }}" class="btn btn-default">
-                                <span class="glyphicon glyphicon-th-list"></span>
-                                {{ 'List'|trans }}
-                            </a>
-                            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                {{ 'New'|trans }}
-                            </a>
-                            <button type="button" class="btn btn-danger" title="" data-target="#modalDelete" data-toggle="modal">
-                                <span class="glyphicon glyphicon-remove"></span> {{ 'Remove'|trans }}
-                            </button>
-                            {% embed 'BaconCoreBundle:partial:modalDelete.html.twig' with {
-                                    form: delete_form,
-                                    route: 'admin_user_delete',
-                                    id: entity.id
-                                } %}
-                            {% endembed %}
+                            {% if (bacon_acl_authorization('users', 'INDEX') == true) %}
+                                <a href="{{ path('admin_user') }}" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    {{ 'List'|trans }}
+                                </a>
+                            {% endif %}
+                            {% if (bacon_acl_authorization('users', 'NEW') == true) %}
+                                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    {{ 'New'|trans }}
+                                </a>
+                            {% endif %}
+                            {% if (bacon_acl_authorization('users', 'DELETE') == true) %}
+                                <button type="button" class="btn btn-danger" title="" data-target="#modalDelete" data-toggle="modal">
+                                    <span class="glyphicon glyphicon-remove"></span> {{ 'Remove'|trans }}
+                                </button>
+                                {% embed 'BaconCoreBundle:partial:modalDelete.html.twig' with {
+                                        form: delete_form,
+                                        route: 'admin_user_delete',
+                                        id: entity.id
+                                    } %}
+                                {% endembed %}
+                            {% endif %}
                         </div>
                     </div>
                 </section>

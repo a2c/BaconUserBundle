@@ -36,7 +36,7 @@ class GroupController extends Controller
     {
         $acl = $this->get('bacon_acl.service.authorization');
 
-        if (!$acl->authorize('users', 'USER_GROUPS')) {
+        if (!$acl->authorize('groups', 'INDEX')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -54,7 +54,7 @@ class GroupController extends Controller
     {
         $acl = $this->get('bacon_acl.service.authorization');
 
-        if (!$acl->authorize('users', 'USER_GROUPS')) {
+        if (!$acl->authorize('groups', 'show')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -72,7 +72,7 @@ class GroupController extends Controller
     {
         $acl = $this->get('bacon_acl.service.authorization');
 
-        if (!$acl->authorize('users', 'USER_GROUPS')) {
+        if (!$acl->authorize('groups', 'EDIT')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -135,7 +135,7 @@ class GroupController extends Controller
     {
         $acl = $this->get('bacon_acl.service.authorization');
 
-        if (!$acl->authorize('users', 'USER_GROUPS')) {
+        if (!$acl->authorize('groups', 'NEW')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -183,7 +183,7 @@ class GroupController extends Controller
     {
         $acl = $this->get('bacon_acl.service.authorization');
 
-        if (!$acl->authorize('users', 'USER_GROUPS')) {
+        if (!$acl->authorize('groups', 'DELETE')) {
             throw $this->createAccessDeniedException();
         }
 
