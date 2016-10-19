@@ -208,6 +208,7 @@ class UserController extends AdminController
             'delete_form' => $deleteForm->createView(),
         );
     }
+    
     /**
      * Deletes a User entity.
      *
@@ -215,13 +216,16 @@ class UserController extends AdminController
      * @Security("has_role('ROLE_ADMIN')")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, User $entity)
+    public function deleteAction(Request $request, $id)
     {
         $acl = $this->get('bacon_acl.service.authorization');
 
         if (!$acl->authorize('users', 'DELETE')) {
             throw $this->createAccessDeniedException();
         }
+
+        $className = $this->getParameter('fos_user.model.user.class');
+        $entity = $this->getDoctrine()->getRepository($className)->find($id);
 
         $form = $this->createDeleteForm('admin_user_delete',$entity);
 
