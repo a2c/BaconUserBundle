@@ -5,7 +5,6 @@ namespace Bacon\Bundle\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Uecode\Bundle\ApiKeyBundle\Util\ApiKeyGenerator;
 
 /**
  * Class User
@@ -34,11 +33,6 @@ abstract class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="api_key",type="string",length=255,nullable=true)
-     */
-    protected $apiKey;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime",nullable=false)
      */
@@ -58,9 +52,6 @@ abstract class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-
-        if (in_array('ROLE_API',$this->getRoles()))
-            $this->setApiKey(ApiKeyGenerator::generate());
     }
 
     /**
@@ -125,21 +116,5 @@ abstract class User extends BaseUser
     public function setDeletedAt(\DateTime $deletedAt)
     {
         $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * @param string $apiKey
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
     }
 }
